@@ -6,8 +6,6 @@ class WickedPdf
       return if base != ActionController::Base
 
       base.class_eval do
-        alias_method_chain :render, :wicked_pdf
-        alias_method_chain :render_to_string, :wicked_pdf
         if respond_to?(:after_action)
           after_action :clean_temp_files
         else
@@ -24,14 +22,6 @@ class WickedPdf
       base.class_eval do
         after_action :clean_temp_files
       end
-    end
-
-    def render(options = nil, *args, &block)
-      render_with_wicked_pdf(options, *args, &block)
-    end
-
-    def render_to_string(options = nil, *args, &block)
-      render_to_string_with_wicked_pdf(options, *args, &block)
     end
 
     def render_with_wicked_pdf(options = nil, *args, &block)
